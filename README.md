@@ -25,7 +25,7 @@ Unit testing in C# is typically done using a unit testing framework such as NUni
 
 **2. _Other_ _library_ _to_ _assist_ _in_ _Testing_** : Install other libraries like **`Fixture, Moq, FluentAssertion'** 
     to simplify the coding. 
-    
+
     - **Fixtures** : Fixtures can be used to initialize objects or prepare the environment for testing.
     - **Moq** : - Moq is a popular mocking library for .NET that allows you to create mock objects for testing.
             - Mock objects simulate the behavior of real objects in a controlled manner, allowing you to isolate the code under test from its dependencies.
@@ -96,6 +96,71 @@ public class MyTestClass
 **6 _Analyze_ _Test_ _Results:_** After running the tests, review the results to identify any failing tests. Failed tests indicate potential issues in your code that need to be addressed. Debugging tools provided by Visual Studio or the xUnit.net test runner can help you diagnose the root cause of failures.
 
 **7 _Refactor_ _and_ _Iterate:_** If any tests fail, make the necessary changes to your code to address the failures. You may need to refactor your implementation or update the test cases accordingly. Repeat the process until all tests pass and you're confident in the correctness of your code.
+
+
+**4 Explain Functional Testing ?**
+
+Ans 
+
+- A functional test, also known as a black-box test, is a type of software testing that evaluates the functionality of a system or component by testing its external behavior without examining its internal implementation. The focus of functional testing is on verifying that the software meets its specified requirements and performs the intended functions correctly.
+
+Here are some key characteristics of functional testing:
+
+- _Focus_ _on_ _User_ _Requirements:_ Functional testing aims to validate that the software behaves as expected from the perspective of the end user. It verifies that the software meets the functional requirements outlined in the specification or user stories.
+
+- _Black-Box_ _Testing_ _Approach:_ Functional testing is typically conducted from an external perspective, treating the system or component as a black box. Testers do not need knowledge of the internal code or implementation details to perform functional tests.
+
+- _Testing_ _of_ _Input-Output_ _Behavior:_ Functional tests evaluate the input-output behavior of the software by providing various inputs and verifying the corresponding outputs. This includes testing user interfaces, APIs, databases, and other external interfaces.
+
+- _Test_ _Scenarios_ _and_ _Use_ _Cases:_ Functional testing involves defining test scenarios and use cases based on the requirements or user stories. These scenarios represent typical interactions with the software and cover various functionalities and features.
+
+- _Validation_ _of_ _Business_ _Logic:_ Functional testing includes validation of the software's business logic and rules to ensure that they are correctly implemented and produce the expected results.
+
+- _Regression_ _Testing:_ Functional tests are often automated to support regression testing, which involves verifying that new changes or enhancements do not introduce unintended side effects or regressions in existing functionality.
+
+- _Types_ _of_ _Functional_ _Testing:_ Functional testing encompasses various types of tests, including smoke testing, sanity testing, integration testing, system testing, acceptance testing, and user acceptance testing (UAT), each focusing on different aspects of the software's functionality.
+
+Overall, functional testing plays a crucial role in ensuring that software systems meet user expectations, function correctly, and deliver value to stakeholders. It helps identify defects, validate requirements, and improve the quality and reliability of software products.
+
+
+**5 Difference between Functional and Integration Testing ? **
+
+Ans :
+
+Functional testing and integration testing are both important phases of the software testing process, but they serve different purposes and focus on different aspects of the software system. Here's a comparison of functional testing and integration testing:
+
+**Purpose:**
+
+- _Functional Testing:_ The main purpose of functional testing is to verify that the software behaves according to its specified functional requirements. It focuses on testing the external behavior of the software from the perspective of the end user.
+- _Integration_ _Testing:_ Integration testing, on the other hand, focuses on testing the interactions between different modules or components of the software system. Its primary purpose is to ensure that individual components work together as expected when integrated into a larger system.
+
+**Scope:**
+
+- _Functional_ _Testing:_ Functional testing typically targets individual features or functionalities of the software in isolation. Test cases are designed to validate specific use cases, user interactions, and business logic.
+Integration Testing: Integration testing involves testing the interactions and interfaces between multiple components or modules of the software. It verifies the flow of data and control between integrated components and ensures that they work together seamlessly.
+
+**Granularity:**
+
+- _Functional Testing:_ Functional testing is usually performed at a higher level of granularity, focusing on end-to-end scenarios and user-facing functionalities. It may involve testing user interfaces, APIs, databases, and other external interfaces.
+- _Integration Testing:_ Integration testing operates at a lower level of granularity, examining the interactions between smaller units of code or components. It may involve testing the integration points, data exchanges, and dependencies between modules.
+
+**Testing Techniques:**
+
+- _Functional Testing:_ Functional testing employs black-box testing techniques, treating the software as a black box and focusing on testing its external behavior. Testers do not need knowledge of the internal implementation details to perform functional tests.
+- _Integration Testing:_ Integration testing often combines black-box and white-box testing techniques. While black-box testing is used to verify the overall behavior of integrated components, white-box testing may be employed to examine the internal interactions and ensure code-level integration.
+
+**Timing:**
+
+- _Functional_ _Testing:_ Functional testing is typically performed after unit testing and before integration testing. It verifies that individual units or components work correctly in isolation before testing their integration.
+- _Integration_ _Testing:_ Integration testing follows functional testing and occurs after individual units or components have been tested. It focuses on validating the interactions between integrated components and identifying integration issues.
+
+In summary, while both functional testing and integration testing are essential for ensuring the quality of software systems, they differ in their purpose, scope, granularity, testing techniques, and timing within the software development lifecycle. Functional testing validates individual functionalities, while integration testing validates the interactions between integrated components.
+
+
+
+
+
+
 
 
 
