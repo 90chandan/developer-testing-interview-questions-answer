@@ -25,13 +25,13 @@ Unit testing in C# is typically done using a unit testing framework such as NUni
 
 **2. _Other_ _library_ _to_ _assist_ _in_ _Testing_** : Install other libraries like **`Fixture, Moq, FluentAssertion'** 
     to simplify the coding. 
-        - **Fixtures** : Fixtures can be used to initialize objects or prepare the environment for testing.
-        - **Moq** : - Moq is a popular mocking library for .NET that allows you to create mock objects for testing.
-                    - Mock objects simulate the behavior of real objects in a controlled manner, allowing you to isolate the code under test from its dependencies.
-                    - Moq is commonly used in unit tests to replace external dependencies such as databases, web services, or external APIs with mock implementations.
-                    - With Moq, you can set up expectations for method calls, specify return values, verify interactions, and more.
-        - **FluentAssertions** FluentAssertions is a fluent assertion library for .NET that provides a more expressive syntax for writing assertions in tests.
-        
+    - **Fixtures** : Fixtures can be used to initialize objects or prepare the environment for testing.
+    - **Moq** : - Moq is a popular mocking library for .NET that allows you to create mock objects for testing.
+            - Mock objects simulate the behavior of real objects in a controlled manner, allowing you to isolate the code under test from its dependencies.
+            - Moq is commonly used in unit tests to replace external dependencies such as databases, web services, or external APIs with mock implementations.
+            - With Moq, you can set up expectations for method calls, specify return values, verify interactions, and more.
+    - **FluentAssertions** FluentAssertions is a fluent assertion library for .NET that provides a more expressive syntax for writing assertions in tests.
+
 **2 _Write_ _Test_ _Methods:_** In C#, unit tests are written as methods within test classes. These methods typically follow a naming convention such as `MethodName_StateUnderTest_ExpectedBehavior`. Each test method should contain one or more assertions to verify the behavior of the code being tested.
 
 **3 _Arrange,_ _Act,_ _Assert (AAA):_** Unit tests generally follow the AAA pattern:
