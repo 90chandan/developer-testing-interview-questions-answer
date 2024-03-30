@@ -312,6 +312,103 @@ public class ProductsIntegrationTests : IClassFixture<WebAppFactory<Startup>>
 
 ```
 
+**9. Example for Functional Testing ?**
+
+Ans
+
+Functional tests, also known as end-to-end tests, focus on testing the entire application from the user's perspective. These tests typically involve simulating user interactions with the application and verifying that the expected outcomes are achieved. In .NET Core, you can use tools like Selenium WebDriver to automate browser interactions for functional testing. Let's create an example of a functional test for a simple web application using Selenium WebDriver and xUnit:
+
+```
+dotnet add package Selenium.WebDriver
+dotnet add package Selenium.WebDriver.ChromeDriver
+dotnet add package xunit
+dotnet add package xunit.runner.visualstudio
+
+```
+```
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using Xunit;
+
+namespace FunctionalTests
+{
+    public class ShoppingCartTests : IDisposable
+    {
+        private readonly IWebDriver _driver;
+        private readonly string _appUrl;
+
+        public ShoppingCartTests()
+        {
+            // You may need to adjust the path to the ChromeDriver executable based on your environment
+            _driver = new ChromeDriver();
+            _appUrl = "http://localhost:5000"; // Assuming your application is running locally
+        }
+
+        public void Dispose()
+        {
+            _driver.Quit();
+            _driver.Dispose();
+        }
+
+        [Fact]
+        public void AddItemToCart_ShouldIncreaseItemCount()
+        {
+            // Navigate to the home page
+            _driver.Navigate().GoToUrl($"{_appUrl}/");
+
+            // Find the product and click on its "Add to Cart" button
+            var addToCartButton = _driver.FindElement(By.CssSelector(".product .add-to-cart"));
+            addToCartButton.Click();
+
+            // Wait for the cart to update (assuming there's some AJAX or delay)
+            System.Threading.Thread.Sleep(2000);
+
+            // Find the cart icon and get the item count
+            var cartIcon = _driver.FindElement(By.CssSelector(".cart-icon"));
+            var itemCountText = cartIcon.Text;
+            var itemCount = int.Parse(itemCountText);
+
+            // Assert that the item count increased to 1
+            Assert.Equal(1, itemCount);
+        }
+
+        [Fact]
+        public void RemoveItemFromCart_ShouldDecreaseItemCount()
+        {
+            // Navigate to the home page
+            _driver.Navigate().GoToUrl($"{_appUrl}/");
+
+            // Find the product and click on its "Add to Cart" button
+            var addToCartButton = _driver.FindElement(By.CssSelector(".product .add-to-cart"));
+            addToCartButton.Click();
+
+            // Wait for the cart to update (assuming there's some AJAX or delay)
+            System.Threading.Thread.Sleep(2000);
+
+            // Find the cart icon and click on it to view the cart
+            var cartIcon = _driver.FindElement(By.CssSelector(".cart-icon"));
+            cartIcon.Click();
+
+            // Find the remove button for the item and click it
+            var removeButton = _driver.FindElement(By.CssSelector(".cart-item .remove"));
+            removeButton.Click();
+
+            // Wait for the cart to update
+            System.Threading.Thread.Sleep(2000);
+
+            // Find the cart icon again and get the item count
+            cartIcon = _driver.FindElement(By.CssSelector(".cart-icon"));
+            var itemCountText = cartIcon.Text;
+            var itemCount = int.Parse(itemCountText);
+
+            // Assert that the item count decreased to 0
+            Assert.Equal(0, itemCount);
+        }
+    }
+}
+
+```
 
 
 
