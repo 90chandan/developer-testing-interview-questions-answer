@@ -411,6 +411,78 @@ namespace FunctionalTests
 ```
 
 
+**===========================================REACT TESTING=============================================**
+
+**1. Popular React testing framework ?**
+
+Ans 
+
+- **Jest:** Jest is a powerful JavaScript testing framework developed by Facebook. It's commonly used for testing React applications and works seamlessly with React Testing Library. Jest provides features like test runners, assertion utilities, and mocks, making it a comprehensive solution for testing React components.
+
+- **Enzyme:** Enzyme is a JavaScript testing utility for React developed by Airbnb. It provides a more jQuery-like API for testing React components, allowing you to traverse and manipulate component trees easily. Enzyme is widely used and offers different rendering methods, such as shallow rendering and full rendering, for testing components in isolation or with their children.
+
+- **Mocha:** Mocha is a flexible JavaScript testing framework that can be used for testing React applications. While it's not specific to React, Mocha's simplicity and extensibility make it a popular choice for testing React components. It can be paired with assertion libraries like Chai for more expressive assertions.
+
+**2. Example of unit test with utility react-testing-library and Jest testing framework ?**
+
+Ans
+
+Suppose we have a React component called Button that renders a button with some text and handles a click event.
+
+```
+// Button.js
+import React from 'react';
+
+const Button = ({ onClick, text }) => {
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
+  );
+};
+
+export default Button;
+
+```
+```
+// Button.test.js
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import Button from './Button';
+
+describe('Button component', () => {
+  test('renders button with correct text', () => {
+    // Render the Button component
+    const { getByText } = render(<Button text="Click me" />);
+
+    // Verify that the button with the specified text is rendered
+    expect(getByText(/click me/i)).toBeInTheDocument();
+  });
+
+  test('fires onClick event', () => {
+    // Mock the onClick function
+    const onClickMock = jest.fn();
+
+    // Render the Button component with the mocked onClick function
+    const { getByText } = render(<Button onClick={onClickMock} text="Click me" />);
+
+    // Simulate a click on the button
+    fireEvent.click(getByText(/click me/i));
+
+    // Verify that the onClick function is called once
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+```
+    - 1. We import React and the necessary testing utilities from @testing-library/react.
+    - 2. We use describe to group related test cases for the Button component.
+    - 3. In the first test, we render the Button component with a specific text and then assert that the button with that text is present in the rendered output.
+    - 4. In the second test, we mock the onClick function using Jest's jest.fn() and render the Button component with this mocked function. Then, we simulate a click event on the button using fireEvent.click() and verify that the mocked onClick function is called exactly once.
+
+
+
+
 
 
 
