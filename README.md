@@ -203,6 +203,115 @@ Depending on your testing requirements, you may need to configure your test envi
 
 
 
+**8. Example of Integration Tests in c# ?**
+
+Ans
+
+Integration testing in .NET Core involves testing the interaction between different components/modules of your application to ensure they work together correctly.
+
+Let's say you have a .NET Core web API that exposes endpoints for managing products in an e-commerce application.
+API depends on an external service, such as a database. Integration testing, need to mock this dependency to isolate your tests from external factors and ensure they run consistently.
+To write an integration test to verify that the endpoint for retrieving all products returns the correct data.
+
+```
+// IRepository.cs
+public interface IRepository
+{
+    Task<List<Product>> GetProductsAsync();
+}
+
+// Repository.cs
+public class Repository : IRepository
+{
+    public async Task<List<Product>> GetProductsAsync()
+    {
+        // Simulate retrieving products from a database
+        return await Task.FromResult(new List<Product>
+        {
+            new Product { Id = 1, Name = "Product1", Price = 10 },
+            new Product { Id = 2, Name = "Product2", Price = 20 },
+            new Product { Id = 3, Name = "Product3", Price = 30 }
+        });
+    }
+}
+
+```
+```
+// ProductsController.cs
+[ApiController]
+[Route("api/products")]
+public class ProductsController : ControllerBase
+{
+    private readonly IRepository _repository;
+
+    public ProductsController(IRepository repository)
+    {
+        _repository = repository;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetAllProducts()
+    {
+        var products = await _repository.GetProductsAsync();
+        return Ok(products);
+    }
+}
+
+```
+```
+// ProductsIntegrationTests.cs
+using Moq;
+
+public class ProductsIntegrationTests : IClassFixture<WebAppFactory<Startup>>
+{
+    private readonly HttpClient _client;
+    private readonly Mock<IRepository> _repositoryMock;
+
+    public ProductsIntegrationTests(WebAppFactory<Startup> factory)
+    {
+        _client = factory.CreateClient();
+        _repositoryMock = new Mock<IRepository>();
+    }
+
+    [Fact]
+    public async Task GetAllProducts_ReturnsSuccessAndCorrectData()
+    {
+        // Arrange
+        var expectedProducts = new List<Product>
+        {
+            new Product { Id = 1, Name = "Product1", Price = 10 },
+            new Product { Id = 2, Name = "Product2", Price = 20 },
+            new Product { Id = 3, Name = "Product3", Price = 30 }
+        };
+        _repositoryMock.Setup(repo => repo.GetProductsAsync()).ReturnsAsync(expectedProducts);
+
+        // Replace the default repository registration with the mock
+        var appFactory = new WebAppFactory<Startup>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddSingleton(_repositoryMock.Object);
+                });
+            });
+        var client = appFactory.CreateClient();
+
+        // Act
+        var response = await client.GetAsync("/api/products");
+        
+        // Assert
+        response.EnsureSuccessStatusCode();
+        var products = await response.Content.ReadAsAsync<List<Product>>();
+        
+        Assert.NotNull(products);
+        Assert.NotEmpty(products);
+        Assert.Equal(3, products.Count);
+        Assert.Equal(expectedProducts, products);
+    }
+}
+
+```
+
 
 
 
