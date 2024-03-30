@@ -423,7 +423,7 @@ Ans
 
 - **Mocha:** Mocha is a flexible JavaScript testing framework that can be used for testing React applications. While it's not specific to React, Mocha's simplicity and extensibility make it a popular choice for testing React components. It can be paired with assertion libraries like Chai for more expressive assertions.
 
-**2. Example of unit test with utility react-testing-library and Jest testing framework ?**
+**2. Example of unit test with utility (react-testing-library) and Jest testing framework ?**
 
 Ans
 
@@ -482,16 +482,93 @@ describe('Button component', () => {
 
 
 
+**3. Example of unit test with Enzyme ?**
+
+Ans 
+
+Suppose we have React component Button:
+```
+// Button.js
+import React from 'react';
+
+const Button = ({ onClick, text }) => {
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
+  );
+};
+
+export default Button;
+
+```
+First, make sure you have Enzyme installed along with the appropriate adapter for React. You can install them via npm:
+```
+npm install --save-dev enzyme enzyme-adapter-react-16
+
+```
+
+Then, configure Enzyme in your test setup file. Create a file named setupTests.js in your src directory and add the following content:
+
+```
+// setupTests.js
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
+```
+
+```
+// Button.test.js
+import React from 'react';
+import { shallow } from 'enzyme';
+import Button from './Button';
+
+describe('Button component', () => {
+  test('renders button with correct text', () => {
+    // Render the Button component
+    const wrapper = shallow(<Button text="Click me" />);
+
+    // Verify that the button with the specified text is rendered
+    expect(wrapper.find('button').text()).toEqual('Click me');
+  });
+
+  test('fires onClick event', () => {
+    // Mock the onClick function
+    const onClickMock = jest.fn();
+
+    // Render the Button component with the mocked onClick function
+    const wrapper = shallow(<Button onClick={onClickMock} text="Click me" />);
+
+    // Simulate a click on the button
+    wrapper.find('button').simulate('click');
+
+    // Verify that the onClick function is called once
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+```
 
 
+**4.roles of Jest and Enzyme in testing React components ?**
 
+Ans
 
+Here's a summary of the roles of Jest and Enzyme in testing React components:
 
+Jest:
 
+- _Test_ _runner:_ Executes your test suites and provides a summary of test results.
+- _Assertion_ _utilities:_ Allows you to make assertions about the behavior of your code.
+- _Mocking_ _utilities:_ Provides tools for mocking functions and modules, useful for isolating components and dependencies.
 
+Enzyme:
 
-
-
+- _Rendering_ _utilities:_ Provides APIs for rendering React components in different ways (shallow rendering, full rendering, static rendering).
+- _Interacting_ _utilities:_ Allows you to simulate user interactions with components (clicking, typing, etc.).
+Traversal and querying: Provides methods for findin
 
 
 
